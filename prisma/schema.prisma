@@ -9,3 +9,24 @@ datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
 }
+
+model ContentPackManifest {
+  id Int @id @default(autoincrement())
+  name String
+  author String
+  version String
+  description String
+  website String
+  image_url String
+  dependencies ContentPackDependency[]
+}
+
+model ContentPackDependency {
+  id Int @id @default(autoincrement())
+  name String
+  version String
+  link String
+
+  ManifestId Int
+  Manifest ContentPackManifest @relation(fields: [ManifestId], references: [id])
+}
