@@ -1,11 +1,11 @@
 {
-	"id": "sample-plugin",
-	"name": "Sample Plugin",
+	"id": "obsidian-lancer-rpg-plugin",
+	"name": "Lancer RPG Plugin",
 	"version": "1.0.0",
 	"minAppVersion": "0.15.0",
-	"description": "Demonstrates some of the capabilities of the Obsidian API.",
-	"author": "Obsidian",
-	"authorUrl": "https://obsidian.md",
-	"fundingUrl": "https://obsidian.md/pricing",
+	"description": "Tool for Lancer DMs to organize lancer sessions in ObsidianMD",
+	"author": "Eric Gomes Gregory",
+	"authorUrl": "",
+	"fundingUrl": "",
 	"isDesktopOnly": false
 }
