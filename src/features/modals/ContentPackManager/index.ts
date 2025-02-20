@@ -27,6 +27,16 @@ export class ContentPackManagerModal extends Modal {
           .catch((error) => console.error(error))
         })
         .catch((error) => console.error(error)),
+
+        onRemove: (lcpId) => this.database.removeLcp(lcpId, () => {
+          console.log("Removed lcp")
+        })
+        .then((db) => {
+          db.getContentPacks()
+          .then((contentPacks) => this.contentPackManager?.update(contentPacks))
+          .catch((error) => console.error(error));
+        })
+        .catch((error) => console.error(error)),
       }
     });
     

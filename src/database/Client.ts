@@ -6,12 +6,12 @@ import * as Importer from "./Importer";
 class Client {
   private app: App;
   private dbPath: string; //normalized path
-  private contentPacks: Set<Models.ContentPack>;
+  private contentPacks: Map<string, Models.ContentPack>;
 
   constructor(app: App, dbPath: string) {
     this.app = app;
     this.dbPath = normalizePath(dbPath);
-    this.contentPacks = new Set();
+    this.contentPacks = new Map();
     console.log(this.dbPath);
   }
 
@@ -31,10 +31,19 @@ class Client {
     try {
       const lcp = await Importer.extractLcp(lcpFile);
       console.log(lcp);
-      this.contentPacks.add(lcp);
+      this.contentPacks.set(lcp.id, lcp);
     } 
     catch (error) { 
       console.error(error);
+    }
+    return this;
+  }
+
+  async removeLcp(id: string, onRemoved?: () => void): Promise<Client> {
+    if (this.contentPacks.delete(id)) {
+      onRemoved?.();
+    } else {
+      console.error(`[DATABASE] removeLcp: Failed to remove lcp with id=${id}`);
     }
     return this;
   }

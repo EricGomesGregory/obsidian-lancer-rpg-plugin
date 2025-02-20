@@ -8,12 +8,14 @@ import * as Database from 'src/database';
 
 interface Props {
   onImport: (file: File) => void;
+  onRemove: (id: string) => void;
 };
 
 let contentPacks: Database.Models.ContentPack[] = $state([]);
 
 let {
-  onImport
+  onImport,
+  onRemove
 }: Props = $props();
 
 async function importLcp(event: Event & {currentTarget: EventTarget & HTMLInputElement;}) {
@@ -30,13 +32,28 @@ export function update(packs: Database.Models.ContentPack[]) {
 </script>
 
 
-<div>
+<div class="content-pack-manager">
   <input type="file" accept=".lcp" onchange={importLcp}/>
-  <div>
+  <div class="content-packs">
     <h2> Content Packs </h2>
-    {#each contentPacks as lcp, i}
-      <ContentPack lcp={lcp}/>
+    {#each contentPacks as lcp}
+      <ContentPack lcp={lcp} onRemove={(id) => onRemove(id)}/>
     {/each}
   </div>
 </div>
 
+<style>
+  .content-pack-manager {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .content-packs {
+    width: 100%;
+    padding: 5px, 5px 0px 0px;
+    display: flex;
+    flex-direction: column;
+    background-color: hsla(0, 0, 0, 0.1);
+  }
+</style>
