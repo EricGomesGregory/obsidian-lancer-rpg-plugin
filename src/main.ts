@@ -1,19 +1,21 @@
 import { Plugin } from 'obsidian';
 import { Client } from './database';
+import { ContentPackManagerModal } from './features/modals/ContentPackManager';
 
-// Remember to rename these classes and interfaces!
 
-interface MyPluginSettings {
-	mySetting: string;
+const LCP_MANAGER_COMMAND = 'lcp-manager-command';
+
+interface LancerPluginSettings {
+	LancerSetting: string;
 
 }
 
-const DEFAULT_SETTINGS: MyPluginSettings = {
-	mySetting: 'default'
+const DEFAULT_SETTINGS: LancerPluginSettings = {
+	LancerSetting: 'default'
 }
 
-export default class MyPlugin extends Plugin {
-	settings: MyPluginSettings;
+export default class LancerPlugin extends Plugin {
+	settings: LancerPluginSettings;
 	database: Client;
 
 	async onload() {
@@ -21,6 +23,14 @@ export default class MyPlugin extends Plugin {
 
 		this.database = new Client(this.app, 'lancer.db');
 		await this.database.init();
+
+		this.addCommand({
+			id: LCP_MANAGER_COMMAND,
+			name: "Open LCP Manager",
+			callback: () => {
+				new ContentPackManagerModal(this.app, this.database).open();
+			}
+		})
 	}
 
 	onunload() {
