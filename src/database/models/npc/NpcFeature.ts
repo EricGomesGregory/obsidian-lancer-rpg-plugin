@@ -1,3 +1,4 @@
+import type { RangeData, TagData } from "../common"
 
 
 
@@ -24,7 +25,7 @@ export interface NpcFeatureData {
   effect?: string
   bonus?: object
   override?: object
-  tags: string[] // TODO: ITagData[]
+  tags: TagData[]
   brew: string
   hide_active: boolean
   type: NpcFeatureType
@@ -42,7 +43,7 @@ export interface NpcSystemData extends NpcFeatureData {
 
 
 export interface NpcTechData extends NpcFeatureData {
-  tags: string[] // TODO: ITagData[]
+  tags: TagData[]
   tech_type: string
   accuracy?: number[]
   attack_bonus?: number[]
@@ -58,10 +59,10 @@ export interface NpcDamageData {
 export interface NpcWeaponData extends NpcFeatureData {
   weapon_type: string
   damage: NpcDamageData[]
-  range: string[] // TODO: RangeData[]
+  range: RangeData[]
   on_hit: string
   accuracy: number[]
   attack_bonus: number[]
-  tags: string[] // TODO: ITagData[]
+  tags: TagData[]
   type: NpcFeatureType.Weapon
 }

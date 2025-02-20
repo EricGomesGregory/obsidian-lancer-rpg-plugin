@@ -1,6 +1,6 @@
 import type { NpcTemplateData } from "./NpcTemplate";
 import type { NpcClassStats, NpcClassData } from "./NpcClass";
-import type { NpcFeatureData, NpcReactionData, NpcSystemData, NpcWeaponData } from "./NpcFeature";
+import type { NpcFeatureData, NpcReactionData, NpcSystemData, NpcTechData, NpcWeaponData } from "./NpcFeature";
 
 
 export type {
@@ -9,6 +9,7 @@ export type {
   NpcSystemData,
   NpcReactionData,
   NpcWeaponData,
+  NpcTechData,
   NpcTemplateData,
 }
 

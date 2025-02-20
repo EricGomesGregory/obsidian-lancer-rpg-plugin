@@ -35,3 +35,29 @@ export interface ContentPack {
   data: ContentPackData,
   missing_content?: boolean
 }
+
+function createManifest(): ContentPackManifest {
+  return {
+    name: "",
+    item_prefix: "",
+    author: "",
+    version: ""
+  }
+}
+
+function createData(): ContentPackData {
+  return {
+    npcClasses: [],
+    npcFeatures: [],
+    npcTemplates: []
+  }
+}
+
+export function createContentPack(): ContentPack {
+  return {
+    id: '',
+    active: false,
+    manifest: createManifest(),
+    data: createData(),
+  }
+}
