@@ -18,7 +18,7 @@ export class ContentPackManagerModal extends Modal {
     this.contentPackManager = mount(ContentPackManager, {
       target: this.contentEl,
       props: {
-        onImport: (file) => this.database.importLcp(file)
+        onImport: (file) => this.database.import(file)
         .then((db) => {
           db.getContentPacks()
           .then((contentPacks) => {
@@ -28,7 +28,7 @@ export class ContentPackManagerModal extends Modal {
         })
         .catch((error) => console.error(error)),
 
-        onRemove: (lcpId) => this.database.removeLcp(lcpId, () => {
+        onRemove: (lcpId) => this.database.remove(lcpId, () => {
           console.log("Removed lcp")
         })
         .then((db) => {
