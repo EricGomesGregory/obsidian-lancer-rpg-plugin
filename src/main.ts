@@ -1,9 +1,12 @@
 import { Plugin } from 'obsidian';
 import { Client } from './database';
 import { ContentPackManagerModal } from './features/modals/ContentPackManager';
+import { NpcClassesModal } from './features/modals/NpcClasses';
 
 
 const LCP_MANAGER_COMMAND = 'lcp-manager-command';
+
+const NPC_CLASS_LIST_COMMAND = 'npc-class-list-command';
 
 interface LancerPluginSettings {
 	LancerSetting: string;
@@ -29,6 +32,14 @@ export default class LancerPlugin extends Plugin {
 			name: "Open LCP Manager",
 			callback: () => {
 				new ContentPackManagerModal(this.app, this.database).open();
+			}
+		});
+
+		this.addCommand({
+			id: NPC_CLASS_LIST_COMMAND,
+			name: "Open Npc Class Viewer",
+			callback: () => {
+				new NpcClassesModal(this.app, this.database).open();
 			}
 		})
 	}
