@@ -2,11 +2,14 @@ import { Plugin } from 'obsidian';
 import { Client } from './database';
 import { ContentPackManagerModal } from './features/modals/ContentPackManager';
 import { NpcClassesModal } from './features/modals/NpcClasses';
+import { EncounterBlock } from './features/markdown/code/Encounter';
 
 
 const LCP_MANAGER_COMMAND = 'lcp-manager-command';
 
 const NPC_CLASS_LIST_COMMAND = 'npc-class-list-command';
+
+const ENCOUNTER_BLOCK = 'lancer-encounter';
 
 interface LancerPluginSettings {
 	LancerSetting: string;
@@ -41,6 +44,10 @@ export default class LancerPlugin extends Plugin {
 			callback: () => {
 				new NpcClassesModal(this.app, this.database).open();
 			}
+		});
+
+		this.registerMarkdownCodeBlockProcessor(ENCOUNTER_BLOCK, async (source, element, context) => {
+			await EncounterBlock(this.database, source, element, context);
 		})
 	}
 

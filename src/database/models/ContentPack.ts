@@ -1,4 +1,6 @@
+import type { EnvironmentData } from "./Environment"
 import type { NpcClassData, NpcFeatureData, NpcTemplateData } from "./npc"
+import type { SitrepData } from "./Sitrep"
 
 
 
@@ -26,6 +28,9 @@ export interface ContentPackData {
   npcClasses: NpcClassData[]
   npcFeatures: NpcFeatureData[]
   npcTemplates: NpcTemplateData[]
+
+  environments: EnvironmentData[]
+  sitreps: SitrepData[]
 }
 
 export interface ContentPack {
@@ -49,7 +54,9 @@ function createData(): ContentPackData {
   return {
     npcClasses: [],
     npcFeatures: [],
-    npcTemplates: []
+    npcTemplates: [],
+    environments: [],
+    sitreps: []
   }
 }
 
