@@ -2,6 +2,7 @@ import { normalizePath, type App } from "obsidian";
 
 import * as Model from "./models";
 import * as Importer from "./Importer";
+import { getBaseContentPack } from "./LancerData";
 
 type ModelType = "Manifest" | "NpcClass" | "NpcFeature" | "NpcTemplate" | "Environment" | "Sitrep";
 //const SAVE_INTERVAL = 30_000;
@@ -61,11 +62,10 @@ class Client {
       await this.load();
       await this.update();
 
-      console.log(`Manifests: ${this.manifests.size}`);
-      console.log(`NpcClasses: ${this.npcClasses.size}`);
-      console.log(`NpcFeatures: ${this.npcFeatures.size}`);
-      console.log(`NpcTemplates: ${this.npcTemplates.size}`);
+      this.logMaps();
     } else {
+      const baseContentPack = getBaseContentPack();
+      this.contentPacks.set(baseContentPack.id, baseContentPack);
       await this.save();
     }
     return this;
@@ -79,10 +79,7 @@ class Client {
       await this.save();
       await this.update();
       
-      console.log(`Manifests: ${this.manifests.size}`);
-      console.log(`NpcClasses: ${this.npcClasses.size}`);
-      console.log(`NpcFeatures: ${this.npcFeatures.size}`);
-      console.log(`NpcTemplates: ${this.npcTemplates.size}`);
+      this.logMaps();
     } 
     catch (error) { 
       console.error(error);
@@ -258,6 +255,15 @@ class Client {
     // Environment & Sitrep
     if (model == "Environment") return Array.from(this.environments.values()) as T[]
     if (model == "Sitrep") return Array.from(this.sitreps.values()) as T[]
+  }
+
+  private logMaps() {
+    console.log(`Manifests: ${this.manifests.size}`);
+    console.log(`NpcClasses: ${this.npcClasses.size}`);
+    console.log(`NpcFeatures: ${this.npcFeatures.size}`);
+    console.log(`NpcTemplates: ${this.npcTemplates.size}`);
+    console.log(`Environments: ${this.environments.size}`);
+    console.log(`Sitreps: ${this.sitreps.size}`);
   }
 }
 

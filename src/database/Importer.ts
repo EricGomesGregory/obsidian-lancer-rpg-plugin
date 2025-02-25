@@ -1,5 +1,6 @@
 import * as Models from "./models";
 import JSZip from "jszip";
+
 import { createContentPack } from "./models/ContentPack";
 
 const MANIFEST = 'lcp_manifest.json';
@@ -7,6 +8,9 @@ const MANIFEST = 'lcp_manifest.json';
 const NPC_CLASSES = 'npc_classes.json';
 const NPC_FEATURES = 'npc_features.json';
 const NPC_TEMPLATES = 'npc_templates.json';
+
+const ENVIRONMENTS = 'environments.json';
+const SITREPS = 'sitreps.json'
 
 
 
@@ -56,7 +60,22 @@ export async function extractLcp(lcpFile: File): Promise<Models.ContentPack> {
 
       console.log(`[ContentPack] Found ${npcTemplates.length} NpcTemplates`);
     }
-  })
+    if (key == ENVIRONMENTS) {
+      const environments: Models.EnvironmentData[] = JSON.parse(value);
+      contentPack.data.environments = environments;
 
+      console.log(`[ContentPack] Found ${environments.length} Environments`);
+    }
+    if (key == SITREPS) {
+      const sitreps: Models.SitrepData[] = JSON.parse(value);
+      contentPack.data.sitreps = sitreps;
+
+      console.log(`[ContentPack] Found ${sitreps.length} Sitreps`);
+    }
+  });
   return contentPack;
 }
+
+
+
+ 

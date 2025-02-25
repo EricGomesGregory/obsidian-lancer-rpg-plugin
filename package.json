@@ -27,6 +27,7 @@
 		"typescript": "~5.0.0"
 	},
 	"dependencies": {
+		"@massif/lancer-data": "^3.1.7",
 		"jszip": "^3.10.1"
 	}
 }
