@@ -30,7 +30,8 @@ function createEncounter(): Encounter {
   }
 }
 
-export async function EncounterBlock(database: Database.Client, source: string, element: HTMLElement, context: Context) {
+export async function EncounterBlock(database: Database.Client, source: string, element: HTMLElement, context: Context, 
+  onShowNpc: (npc: Lancer.Npc) => void) {
   const request = parseYaml(source) as EncounterRequest;
   console.log(request)
   const encounter = await requestEncounter(database, request);
@@ -43,7 +44,8 @@ export async function EncounterBlock(database: Database.Client, source: string, 
   mount(EncounterUI, {
     target: element,
     props: {
-      encounter: encounter
+      encounter: encounter,
+      onClickNpc: onShowNpc
     }
   });
 }

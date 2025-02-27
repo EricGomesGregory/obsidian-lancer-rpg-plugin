@@ -4,17 +4,19 @@
 
   interface Props {
     data: Npc[]
+    onClick: (npc: Npc) => void
   }
 
   let {
-    data: forces
+    data,
+    onClick
   }: Props = $props()
 
 </script>
 
 <fieldset>
   <legend> <b> REINFORCEMENTS </b> </legend>
-  {#each forces as ncp }
-    <NpcPill data={ncp}/>
+  {#each data as ncp }
+    <NpcPill data={ncp} onClick={onClick}/>
   {/each}
 </fieldset>

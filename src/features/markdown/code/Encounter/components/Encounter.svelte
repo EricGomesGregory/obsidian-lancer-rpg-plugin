@@ -1,4 +1,5 @@
 <script lang="ts">
+	import type { Npc } from "src/classes/Lancer";
   import type { Encounter } from "..";
 	
 	import Environment from "./Environment.svelte";
@@ -8,10 +9,12 @@
 
   interface Props {
     encounter: Encounter
+    onClickNpc: (npc: Npc) => void
   }
 
   let {
-    encounter
+    encounter,
+    onClickNpc
   }: Props = $props();
 
   let forces = encounter.forces;
@@ -21,8 +24,8 @@
 <div>
   <Environment data={encounter.environment}/>
   <Sitrep data={encounter.sitrep}/>
-  <Forces data={forces}/>
+  <Forces data={forces} onClick={onClickNpc}/>
   {#if encounter.reinforcements != undefined}
-    <Reinforcements data={encounter.reinforcements}/>
+    <Reinforcements data={encounter.reinforcements} onClick={onClickNpc}/>
   {/if}
 </div>

@@ -4,15 +4,17 @@
 
 interface Props {
   data: Npc
+  onClick: (npc: Npc) => void
 }
 
 let {
-  data
+  data,
+  onClick
 }: Props = $props();
 
 </script>
 
-<button>
+<button onclick={() => onClick(data)}>
   {#each data.templates as template }
     {template.name}
   {/each}

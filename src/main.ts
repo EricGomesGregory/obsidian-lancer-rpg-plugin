@@ -5,6 +5,7 @@ import { ContentPackManagerModal } from './features/modals/ContentPackManager';
 import { NpcClassesModal } from './features/modals/NpcClasses';
 import { EncounterBlock } from './features/markdown/code/Encounter';
 import { ProgressClock } from './features/markdown/code/ProgressClock';
+import { NpcEntryModal } from './features/modals/NpcEntry';
 
 
 const LCP_MANAGER_COMMAND = 'lcp-manager-command';
@@ -58,7 +59,9 @@ export default class LancerPlugin extends Plugin {
 		});
 
 		this.registerMarkdownCodeBlockProcessor(ENCOUNTER_BLOCK, async (source, element, context) => {
-			await EncounterBlock(this.database, source, element, context);
+			await EncounterBlock(this.database, source, element, context, (npc) => {
+				new NpcEntryModal(this.app, npc).open();
+			});
 		});
 	}
 
