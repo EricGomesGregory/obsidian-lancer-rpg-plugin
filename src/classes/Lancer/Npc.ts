@@ -204,8 +204,8 @@ export interface NpcSystem extends NpcFeature {
 //#region Tech
 
 export function createNpcTech(featureData: Model.NpcTechData, tier: number): NpcTech {
-  const accuracy = featureData.accuracy? featureData.accuracy[tier] : undefined;
-  const attack_bonus = featureData.attack_bonus ? featureData.attack_bonus[tier] : undefined;
+  const accuracy = featureData.accuracy? featureData.accuracy : undefined;
+  const attack_bonus = featureData.attack_bonus ? featureData.attack_bonus : undefined;
   return {
     name: featureData.name,
     tier: tier,
@@ -229,8 +229,8 @@ export interface NpcTech extends NpcFeature {
   type: Model.NpcFeatureType.Tech
   tags: string // TODO: Tag[]
   tech_type: string
-  accuracy?: number
-  attack_bonus?: number
+  accuracy?: number[]
+  attack_bonus?: number[]
 }
 
 //#region Weapon
@@ -249,19 +249,19 @@ export function createNpcWeapon(featureData: Model.NpcWeaponData, tier: number):
     hide_active: featureData.hide_active,
     type: featureData.type,
     // Weapon
-    damage: featureData.damage[tier],
-    range: "", //featureData.range[tier], // TODO: Range
-    accuracy: featureData.accuracy[tier],
-    attack_bonus: featureData.attack_bonus[tier]
+    damage: featureData.damage,
+    range: "", //featureData.range, // TODO: Range
+    accuracy: featureData.accuracy,
+    attack_bonus: featureData.attack_bonus
   }
 }
 
 export interface NpcWeapon extends NpcFeature {
   type: Model.NpcFeatureType.Weapon
-  damage: NpcDamage
+  damage: NpcDamage[]
   range: string // TODO: Range
-  accuracy: number
-  attack_bonus: number
+  accuracy: number[]
+  attack_bonus: number[]
   tags: string // TODO: Tags
 }
 

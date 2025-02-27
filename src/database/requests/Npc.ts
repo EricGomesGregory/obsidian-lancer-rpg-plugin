@@ -5,7 +5,7 @@ import type Client from "../Client";
 
 
 export interface NpcRequest {
-  tier: 1 | 2 | 3
+  tier: number
   npcClass: string // NpcClassId
   npcTemplates: string[]
   optionalFeatures?: string[]
@@ -17,22 +17,25 @@ export type NpcListRequestResult = RequestResult<Npc[]>
 
 
 export async function requestNpcList(db: Client, requests: NpcRequest[]): Promise<NpcListRequestResult> {
+  console.log("requestNpcList: 0")
   const result: NpcListRequestResult = {
     status: RequestStatus.Failed,
     data: []
   }
-  requests.forEach(async (request) => {
+  console.log("requestNpcList: 1")
+  for (const request of requests) {
     const npcResult = await requestNpc(db, request);
     if (npcResult.status == RequestStatus.Succeeded) {
       result.data.push(npcResult.data);
     }
-  });
+  }
+  console.log("requestNpcList: 2")
   result.status = RequestStatus.Succeeded;
+  console.log("requestNpcList: 3")
   return result;
 }
 
 export async function requestNpc(db: Client, request: NpcRequest): Promise<NpcRequestResult> {
-  console.log("requestNpc: 0")
   const result: NpcRequestResult = {
     status: RequestStatus.Failed,
     data: createNpc()
@@ -44,7 +47,10 @@ export async function requestNpc(db: Client, request: NpcRequest): Promise<NpcRe
   .then((npcClassData) => {
     if (npcClassData === undefined) return result;
 
-    result.data.class = createNpcClass(npcClassData, request.tier);
+    const npcClass = createNpcClass(npcClassData, request.tier);
+    result.data.class = npcClass;
+    result.data.name = npcClass.name;
+    result.data.tier = request.tier;
     baseFeaturesIds = [...npcClassData.base_features];
     optionalFeaturesIds = [...npcClassData.optional_features];
   })
