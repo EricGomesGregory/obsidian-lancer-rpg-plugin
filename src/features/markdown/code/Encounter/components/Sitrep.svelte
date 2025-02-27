@@ -11,6 +11,6 @@
 </script>
 
 <fieldset>
-  <legend> {data.name} </legend>
+  <legend> <b>SITREP:</b> {data.name} </legend>
   <p> {data.description} </p>
 </fieldset>

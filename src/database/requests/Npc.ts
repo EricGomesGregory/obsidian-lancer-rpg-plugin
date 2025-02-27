@@ -1,11 +1,30 @@
-import { type Npc, createNpc, createNpcClass, createNpcReaction, createNpcSystem, createNpcTech, createNpcTemplate, createNpcTrait, createNpcWeapon } from "src/classes/Lancer/Npc";
-import { NpcFeatureType, type NpcReactionData, type NpcSystemData, type NpcTechData, type NpcWeaponData } from "../models/npc/NpcFeature";
+import type { Npc } from "src/classes/Lancer/Npc";
+import {
+  createNpc,
+  createNpcClass,
+  createNpcReaction,
+  createNpcSystem,
+  createNpcTech,
+  createNpcTemplate,
+  createNpcTrait,
+  createNpcWeapon
+} from "src/classes/Lancer/Npc";
+
+import type { NpcReactionData, NpcSystemData, NpcTechData, NpcWeaponData } from "../models/npc/NpcFeature";
+import { NpcFeatureType } from "../models/npc/NpcFeature";
+
 import { RequestStatus, type RequestResult } from ".";
 import type Client from "../Client";
 
+enum EncounterSide {
+  Enemy = 'Enemy',
+  Ally = 'Ally',
+  Neutral = 'Neutral',
+}
 
 export interface NpcRequest {
   tier: number
+  side: EncounterSide
   npcClass: string // NpcClassId
   npcTemplates: string[]
   optionalFeatures?: string[]
@@ -17,21 +36,19 @@ export type NpcListRequestResult = RequestResult<Npc[]>
 
 
 export async function requestNpcList(db: Client, requests: NpcRequest[]): Promise<NpcListRequestResult> {
-  console.log("requestNpcList: 0")
   const result: NpcListRequestResult = {
     status: RequestStatus.Failed,
     data: []
   }
-  console.log("requestNpcList: 1")
+  
   for (const request of requests) {
     const npcResult = await requestNpc(db, request);
     if (npcResult.status == RequestStatus.Succeeded) {
       result.data.push(npcResult.data);
     }
   }
-  console.log("requestNpcList: 2")
+  
   result.status = RequestStatus.Succeeded;
-  console.log("requestNpcList: 3")
   return result;
 }
 

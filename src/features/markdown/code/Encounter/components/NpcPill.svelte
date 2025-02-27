@@ -13,5 +13,8 @@ let {
 </script>
 
 <button>
+  {#each data.templates as template }
+    {template.name}
+  {/each}
   {data.name} {data.tier}
 </button>

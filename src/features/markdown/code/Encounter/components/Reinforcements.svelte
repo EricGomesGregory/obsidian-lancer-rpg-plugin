@@ -7,14 +7,14 @@
   }
 
   let {
-    data
+    data: forces
   }: Props = $props()
 
 </script>
 
 <fieldset>
-  <legend> <b> FORCES </b> </legend>
-  {#each data as ncp }
+  <legend> <b> REINFORCEMENTS </b> </legend>
+  {#each forces as ncp }
     <NpcPill data={ncp}/>
   {/each}
 </fieldset>

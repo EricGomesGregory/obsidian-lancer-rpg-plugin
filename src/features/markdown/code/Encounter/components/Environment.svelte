@@ -12,6 +12,6 @@
 </script>
 
 <fieldset>
-  <legend> {data.name} </legend>
+  <legend> <b>ENVIRONMENT:</b> {data.name} </legend>
   <p> {data.description} </p>
 </fieldset>
