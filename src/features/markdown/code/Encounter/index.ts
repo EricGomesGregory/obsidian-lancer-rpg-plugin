@@ -63,13 +63,10 @@ async function requestEncounter(database: Database.Client, request: EncounterReq
   if (npcListResult.status == RequestStatus.Succeeded) {
     encounter.forces = npcListResult.data;
   }
-  console.log("requestEncounter: 0")
+
   if (request.reinforcements) {
-    console.log("requestEncounter: 1")
     const reinforcementsRequest = await Database.Requests.requestNpcList(database, request.reinforcements);
-    console.log("requestEncounter: 2")
     if (reinforcementsRequest.status == RequestStatus.Succeeded) {
-      console.log("requestEncounter: 3")
       encounter.reinforcements = reinforcementsRequest.data;
     } 
   }
